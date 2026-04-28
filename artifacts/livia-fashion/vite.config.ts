@@ -1,54 +1,24 @@
 import { defineConfig } from "vite";
 import path from "path";
 
-const rawPort = process.env.PORT;
-
-if (!rawPort) {
-  throw new Error(
-    "PORT environment variable is required but was not provided.",
-  );
-}
-
-const port = Number(rawPort);
-
-if (Number.isNaN(port) || port <= 0) {
-  throw new Error(`Invalid PORT value: "${rawPort}"`);
-}
-
-const basePath = process.env.BASE_PATH;
-
-if (!basePath) {
-  throw new Error(
-    "BASE_PATH environment variable is required but was not provided.",
-  );
-}
-
 export default defineConfig({
-  base: basePath,
-  root: path.resolve(import.meta.dirname),
+  base: "/",
+  root: path.resolve(__dirname),
   appType: "mpa",
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist/public"),
+    outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: path.resolve(import.meta.dirname, "index.html"),
-        shop: path.resolve(import.meta.dirname, "shop.html"),
-        collections: path.resolve(import.meta.dirname, "collections.html"),
-        about: path.resolve(import.meta.dirname, "about.html"),
-        contact: path.resolve(import.meta.dirname, "contact.html"),
+        main: path.resolve(__dirname, "index.html"),
+        shop: path.resolve(__dirname, "shop.html"),
+        collections: path.resolve(__dirname, "collections.html"),
+        about: path.resolve(__dirname, "about.html"),
+        contact: path.resolve(__dirname, "contact.html"),
       },
     },
   },
   server: {
-    port,
-    strictPort: true,
-    host: "0.0.0.0",
-    allowedHosts: true,
-  },
-  preview: {
-    port,
-    host: "0.0.0.0",
-    allowedHosts: true,
+    port: 3000,
   },
 });
